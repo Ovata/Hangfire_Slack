@@ -29,28 +29,29 @@ namespace api_slack
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHangfire(h => h.UseSqlServerStorage(Configuration.GetConnectionString("Default")));
-            services.AddHangfireServer();
-            JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("Default"));
+           // services.AddHangfire(h => h.UseSqlServerStorage(Configuration.GetConnectionString("Default")));
+            //services.AddHangfireServer();
+            //JobStorage.Current = new SqlServerStorage(Configuration.GetConnectionString("Default"));
+            services.AddSingleton<ISendSlackMessage, SendSlackMessage>();
             services.AddControllers();
-            services.AddHttpClient<ISlackMessageSender, SlackMessageSender>(c =>
-            {
-                c.BaseAddress = new Uri("https://hook.slack.com");
-            });
+            //services.AddHttpClient<ISlackMessageSender, SlackMessageSender>(c =>
+            //{
+            //    c.BaseAddress = new Uri("https://hook.slack.com");
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseHangfireDashboard();
+            //app.UseHangfireDashboard();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHangfireDashboard();
-            HangfireRecurringJobScheduler.ScheduleRandomFridayMessage();
+           // app.UseHangfireDashboard();
+           // HangfireRecurringJobScheduler.ScheduleRandomFridayMessage();
 
             app.UseHttpsRedirection();
 
