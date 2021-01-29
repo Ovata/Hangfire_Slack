@@ -4,6 +4,7 @@ using Slack.Webhooks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace api_slack.Service
@@ -31,36 +32,9 @@ namespace api_slack.Service
             
             try
             {
+                
                 var slackClient = new SlackClient(_webhook_url);
                 slackClient.PostMessage(Text, _username, _channel);
-                //var message = new SlackMessage()
-                //{
-                //    Channel = _channel,
-                //    Text = Text,
-                //    IconEmoji = Emoji.Loudspeaker,
-                //    Username = _username
-                //};
-
-                //var slackAttachment = new SlackAttachment
-                //{
-
-                //    Color = _color,
-                //    ThumbUrl = _thumb_url,
-                //    Fields =
-                //            new List<SlackField>
-                //                {
-                //                new SlackField
-                //                    {
-                //                        Title = "Details",
-                //                        Value = Details
-                //                    }
-
-                //                }
-                //};
-                //message.Attachments = new List<SlackAttachment> { slackAttachment };
-                //var payload = new Payload();
-                //payload = message;
-                //var send = slackClient.PostMessage(Text, _username, _channel);
             }
             catch (Exception)
             {
