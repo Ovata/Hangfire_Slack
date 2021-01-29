@@ -36,10 +36,10 @@ namespace api_slack.Service
                 var slackClient = new SlackClient(_webhook_url);
                 slackClient.PostMessage(Text, _username, _channel);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw new Exception("Something went wrong while posting to slack");
+                throw new Exception("Something went wrong while posting to slack", ex);
             }
 
         }
